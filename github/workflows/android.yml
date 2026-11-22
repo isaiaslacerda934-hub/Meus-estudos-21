@@ -1,11 +1,11 @@
+
 name: Gerar APK Android
 
 on:
   workflow_dispatch:
   push:
-    paths:
-      - 'MeuControleDeEstudos_Projeto_Android_v2.zip'
-      - '.github/workflows/android.yml'
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -13,8 +13,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Baixar repositório
+      - name: Baixar repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Java
