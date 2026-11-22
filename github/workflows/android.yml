@@ -41,4 +41,3 @@ jobs:
           name: Meu-Controle-de-Estudos-APK
           path: source/MeuControleDeEstudosAndroid/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-
