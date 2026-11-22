@@ -1,0 +1,35 @@
+name: Gerar APK Android
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'MeuControleDeEstudos_Projeto_Android_v2.zip'
+      - '.github/workflows/android.yml'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Instalar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Extrair projeto Android
+        run: |
+          unzip -q MeuControleDeEstudos_Projeto_Android_v2.zip -d source
+          cd source/MeuControleDeEstudosAndroid
+          gradle assembleDebug
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Meu-Controle-de-Estudos-APK
+          path: source/MeuControleDeEstudosAndroid/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
